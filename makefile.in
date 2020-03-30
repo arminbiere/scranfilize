@@ -1,0 +1,11 @@
+all: scranfilize
+scranfilize: scranfilize.c config.h makefile
+	@COMPILE@ -o $@ scranfilize.c
+config.h: scranfilize.c makefile
+	./make-config > $@
+test: scranfilize
+	./test.sh
+clean:
+	rm -f scranfilize makefile config.h
+	rm -rf log
+.PHONY: all test clean
