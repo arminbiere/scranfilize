@@ -1,15 +1,27 @@
 #!/bin/sh
 debug=no
+usage () {
+cat <<EOF
+usage: configure [ -g | CC=<compiler> ]
+
+  -g             compile for debugging (assertion checking and symbols)
+  CC=<compiler>  force C compiler (default 'gcc', tested also with 'clang')
+
+You can also choose the compiler through the environment variable 'CC'.
+EOF
+}
 while [ $# -gt 0 ]
 do
   case $1 in
-    -h) echo "usage: configure [ -g ]"; exit 0;;
+    -h) usage; exit 0;;
     -g) debug=yes;;
+    CC=*) CC=`echo "$1" | sed -e s,^CC=,,`;;
     -*) echo "configure: error: invalid option '$1' (try '-h')"; exit 1;;
   esac
   shift
 done
-COMPILE="gcc -Wall"
+[ x"$CC" = x ] && CC=gcc
+COMPILE="$CC -Wall"
 if [ $debug = yes ]
 then
   COMPILE="$COMPILE -g3"
