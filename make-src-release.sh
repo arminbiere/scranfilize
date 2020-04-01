@@ -8,7 +8,7 @@ configure \
 LICENSE \
 make-config \
 makefile.in \
-README \
+README.md \
 scranfilize.c \
 test.sh \
 VERSION \
