@@ -591,7 +591,8 @@ static void init (int argc, char ** argv) {
   }
 
   if (seed < 0) {
-    uint64_t t = 8526563 * (unsigned long) times (0);
+    struct tms buffer;
+    uint64_t t = 8526563 * (unsigned long) times (&buffer);
     uint64_t p = 3944621 * (unsigned long) getpid ();
     uint64_t tmp = t + p;
     seed = tmp & 0xffffffff;
